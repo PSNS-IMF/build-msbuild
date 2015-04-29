@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="Debug" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="DiffCopy" AssemblyFile="src\Build\bin\Debug\Psns.Common.Build.dll" />
+  <Target Name="Debug">
+    <DiffCopy Source="Source" Destination="Dest" Excluded="ignore.txt" />
+  </Target>
+</Project>

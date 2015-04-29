@@ -73,13 +73,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Build\Build.csproj">
-      <Project>{00f16f1c-e9f6-4582-ac79-096307f3f477}</Project>
-      <Name>Build</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\src\Psns.Common.Build\Psns.Common.Build.csproj">
+      <Project>{00f16f1c-e9f6-4582-ac79-096307f3f477}</Project>
+      <Name>Psns.Common.Build</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
