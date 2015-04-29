@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <SolutionName>Build</SolutionName>
+    <ProjectName>Psns.Common.Build</ProjectName>
+    <OutDir>src\$(ProjectName)\bin\$(Configuration)\</OutDir>
+    <AssemblyPath>$(OutDir)$(ProjectName).dll</AssemblyPath>
+    <XmlDocPath>$(OutDir)$(ProjectName).xml</XmlDocPath>
+  </PropertyGroup>
+
+  <Target Name="Build" DependsOnTargets="Compile;Test;Deploy" />
+
+  <Target Name="Compile">
+    <MSBuild Projects="$(SolutionName).sln" />
+  </Target>
+
+  <Target Name="Test">
+    <Exec Command="&quot;$(VsTestConsole)&quot; test\$(SolutionName).UnitTests\bin\$(Configuration)\$(SolutionName).UnitTests.dll" />
+  </Target>
+
+  <Target Name="Deploy">
+    <GetAssemblyIdentity AssemblyFiles="$(AssemblyPath)">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyInfo" />
+    </GetAssemblyIdentity>
+    <Copy DestinationFolder="Build\lib\net40" SourceFiles="$(AssemblyPath);$(XmlDocPath)" />
+    <Exec Command="$(Nuget) pack $(ProjectName).nuspec -NoPackageAnalysis -verbosity detailed -p Configuration=$(Configuration) -Version %(AssemblyInfo.Version) -o Build" />
+  </Target>
+</Project>

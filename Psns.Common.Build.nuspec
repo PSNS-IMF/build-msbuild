@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PSNS.Common.Build</id>
+    <title>PSNS MSBuild Tasks</title>
+    <authors>PSNS</authors>
+    <owners>109.14</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Contains some custom MSBuild tasks</description>
+    <projectUrl>https://github.com/PSNS-IMF/build-msbuild</projectUrl>
+    <licenseUrl>https://github.com/PSNS-IMF/build-msbuild/blob/master/LICENSE.md</licenseUrl>
+    <releaseNotes>
+      ## 1.0.0.0
+      ### Features
+      * Initial release
+    </releaseNotes>
+    <version>$version$</version>
+    <tags>PSNS build MSBuild</tags>
+  </metadata>
+  <files>
+    <file src="..src\Build\bin\$configuration$\Psns.Common.Build.*" target="lib\net40\" />
+  </files>
+</package>

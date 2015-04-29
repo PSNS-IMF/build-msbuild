@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <DeployPath>\\psns.sy\unnpi-apps\Development\C109.14\Nuget\</DeployPath>
+    <ProjectName>Build</ProjectName>
+    <AssemblyName>Psns.Common.$(ProjectName)</AssemblyName>
+    <AssemblyPath>$(OutDir)$(AssemblyName).dll</AssemblyPath>
+  </PropertyGroup>
+
+  <Target Name="Build" DependsOnTargets="Compile;Deploy" />
+
+  <Target Name="Compile">
+    <MSBuild Projects="$(ProjectName).sln" />
+  </Target>
+
+  <Target Name="Cleanup">
+    <Exec Command="del $(DeployPath)$(AssemblyName).*.nupkg" ContinueOnError="true" />
+  </Target>
+  
+  <Target Name="Deploy" DependsOnTargets="Cleanup">
+    <GetAssemblyIdentity AssemblyFiles="$(AssemblyPath)">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyInfo" />
+    </GetAssemblyIdentity>
+    <Copy DestinationFolder="src\$(ProjectName)\nuget\lib\net40" SourceFiles="$(AssemblyPath)" />
+    <Exec Command="nuget pack src\$(ProjectName)\nuget\$(AssemblyName).nuspec -Prop Configuration=Release -Version %(AssemblyInfo.Version) -OutputDirectory src\$(ProjectName)\nuget" />
+    <Exec Command="nuget push src\$(ProjectName)\nuget\*.nupkg -Source $(DeployPath)" />
+  </Target>
+</Project>
