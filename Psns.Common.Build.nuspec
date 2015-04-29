@@ -18,6 +18,6 @@
     <tags>PSNS build MSBuild</tags>
   </metadata>
   <files>
-    <file src="..src\Build\bin\$configuration$\Psns.Common.Build.*" target="lib\net40\" />
+    <file src="src\Build\bin\$configuration$\Psns.Common.Build.*" target="lib\net40\" />
   </files>
 </package>
